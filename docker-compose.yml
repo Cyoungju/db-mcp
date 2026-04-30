@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: db-mcp-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: mcpdb
+    ports:
+      - "3308:3306"
+    volumes:
+      - db_mcp_data:/var/lib/mysql
+    restart: unless-stopped
+
+volumes:
+  db_mcp_data:

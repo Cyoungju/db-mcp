@@ -9,18 +9,42 @@ version = '0.0.1-SNAPSHOT'
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(25)
+		languageVersion = JavaLanguageVersion.of(17)
 	}
 }
 
+ext {
+	set('springAiVersion', "1.0.0-M6")
+}
+
+
+// 저장소 추가 (Spring Milestone 필수!)
 repositories {
 	mavenCentral()
+	maven {
+		name = "Spring Milestones"
+		url = uri("https://repo.spring.io/milestone")
+	}
 }
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+	// MCP서버 (stdio 방식)
+	implementation 'org.springframework.ai:spring-ai-mcp-server-spring-boot-starter'
+
+	// MYSQL 연결
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+}
+
+// BOM으로 버전 통일 관리
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
+	}
 }
 
 tasks.named('test') {
