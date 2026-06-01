@@ -11,6 +11,8 @@ spring:
     show-sql: true
 
   ai:
+    anthropic:
+      api-key: ${ANTHROPIC_API_KEY}
     mcp:
       server:
         stdio: true
