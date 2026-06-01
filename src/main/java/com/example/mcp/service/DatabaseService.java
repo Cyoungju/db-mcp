@@ -42,4 +42,24 @@ public class DatabaseService {
         }
         return sb.toString();
     }
+
+    // SQL 실행 (SELECT만 허용)
+    public String executeSql(String sql) {
+        try {
+            if (!sql.trim().toUpperCase().startsWith("SELECT")) {
+                return "❌ SELECT 쿼리만 허용됩니다.";
+            }
+            List<Map<String, Object>> result = jdbcTemplate.queryForList(sql);
+            if (result.isEmpty()) {
+                return "조회 결과가 없습니다.";
+            }
+            StringBuilder sb = new StringBuilder();
+            for (Map<String, Object> row : result) {
+                sb.append(row).append("\n");
+            }
+            return sb.toString();
+        } catch (Exception e) {
+            return "❌ 오류 발생: " + e.getMessage();
+        }
+    }
 }
