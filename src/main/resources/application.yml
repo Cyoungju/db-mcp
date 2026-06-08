@@ -1,4 +1,8 @@
 spring:
+  main:
+    web-application-type: none
+    allow-circular-references: true
+    banner-mode: off
   datasource:
     url: jdbc:mysql://localhost:3308/mcpdb
     username: ${DB_USERNAME}
@@ -8,7 +12,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
 
   ai:
     anthropic:
@@ -17,3 +21,7 @@ spring:
       server:
         stdio: true
         name: db-assistant
+
+logging:
+  level:
+    root: OFF
