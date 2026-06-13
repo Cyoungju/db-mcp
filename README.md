@@ -1,11 +1,16 @@
 # DB MCP Server
 
 자연어로 MySQL DB를 조회할 수 있는 MCP 서버입니다.<br/>
-Spring Boot + Spring AI + Claude API를 활용하여 구현했습니다.
+Spring Boot + Spring AI + Claude API를 활용하여 구현한 미니 프로젝트 입니다.
+- 개발기간 : 2026.05.01 ~ 2026.06.18
+- 프로젝트 블로그 [(바로가기)](https://jjuya.tistory.com/category/%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/Springboot-MCP-Server)
 
 
-## 기술 스택
+## 🛠️프로젝트 아키텍처
+![](./img/architecture.png)
+Claude Desktop(MCP Host)이 stdio 프로토콜로 Spring Boot MCP 서버와 통신하며, 자연어 질문을 수신한 서버는 JdbcTemplate으로 DB 스키마를 조회한 뒤 Anthropic Claude API에 프롬프트로 전달해 SQL을 생성하고, 생성된 쿼리를 MySQL에 실행한 결과를 MCP 응답으로 반환합니다.
 
+## 🚀기술 스택
 - Java 17
 - Spring Boot
 - Spring AI
@@ -14,7 +19,7 @@ Spring Boot + Spring AI + Claude API를 활용하여 구현했습니다.
 
 
 
-## 프로젝트 구조
+## ⚖️프로젝트 구조
 
 ```
 src/main/java/com/example/mcp/
@@ -28,7 +33,7 @@ src/main/java/com/example/mcp/
 ```
 
 
-## 동작 흐름
+## 💻동작 흐름
 
 ```
 사용자 자연어 질문
@@ -43,7 +48,7 @@ MCP 서버 (Spring Boot)
 ```
 
 
-## 사용 예시
+## 💻사용 예시
 
 ```
 "users 테이블 구조 보여줘"
@@ -54,7 +59,7 @@ MCP 서버 (Spring Boot)
 ```
 
 
-## 주의사항
+## 📌주의사항
 
 - SELECT 쿼리만 허용 (데이터 변경 방지)
 - API 키, DB 비밀번호는 환경변수로 관리
